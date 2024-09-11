@@ -9,6 +9,17 @@ function toggleMenu() {
     menuList.style.display = "none";
   }
 }
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    console.log(entry);
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+});
+const hiddenElements = document.querySelectorAll(".hidden");
+hiddenElements.forEach((el) => observer.observe(el));
+
 function universalToggle(inputBox, image) {
   if (inputBox.type == "password") {
     inputBox.type = "text";
@@ -18,21 +29,25 @@ function universalToggle(inputBox, image) {
     image.src = "images/eye open icon.png";
   }
 }
+
 let input1 = document.querySelector(".password1");
 const eye1 = document.getElementById("eye1");
-function togglePassword1() {
+eye1.addEventListener("click", () => {
   universalToggle(input1, eye1);
-}
+});
+
 let input2 = document.querySelector(".password2");
 const eye2 = document.getElementById("eye2");
-function togglePassword2() {
+eye2.addEventListener("click", () => {
   universalToggle(input2, eye2);
-}
+});
+
 let input3 = document.querySelector(".password3");
 const eye3 = document.getElementById("eye3");
-function togglePassword3() {
+eye3.addEventListener("click", () => {
   universalToggle(input3, eye3);
-}
+});
+
 let userName = document.querySelector("#name");
 let userEmail = document.querySelector("#email");
 let city = document.querySelector("#city");
@@ -42,6 +57,10 @@ document.getElementById("submit").addEventListener("click", function (event) {
 });
 let userInfo = [];
 signUp.addEventListener("click", () => {
+  signUpProcess();
+});
+
+function signUpProcess() {
   if (
     userName.value == "" &&
     userEmail.value == "" &&
@@ -65,9 +84,10 @@ signUp.addEventListener("click", () => {
   };
   userInfo.push(users);
   console.log(userInfo);
-});
+}
 const login = document.querySelector("#login");
 const loginEmail = document.querySelector("#email-login");
+
 login.addEventListener("click", () => {
   if (loginEmail.value == "" && input3.value == "") {
     alert("You need to input something");
@@ -82,6 +102,9 @@ let secondPage = document.querySelector(".secondpage");
 let footer = document.querySelector(".footer");
 body.style.background = "white";
 toggleColor.addEventListener("click", () => {
+  darkMode();
+});
+function darkMode() {
   if (body.style.background == "white") {
     toggleColor.innerHTML = "Light mode";
     toggleColor.style.background = "white";
@@ -101,4 +124,4 @@ toggleColor.addEventListener("click", () => {
     secondPage.style.background = "#29c5fc";
     footer.style.background = "#03045e";
   }
-});
+}
